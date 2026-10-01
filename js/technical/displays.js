@@ -4,6 +4,7 @@ function prestigeButtonText(layer) {
 	if (tmp[layer].type == "normal")
 		return `${player[layer].points.lt(1e3) ? (tmp[layer].resetDescription !== undefined ? tmp[layer].resetDescription : "重置以获得 ") : ""}+<b>${formatWhole(tmp[layer].resetGain)}</b> ${tmp[layer].resource} ${tmp[layer].resetGain.lt(100) && player[layer].points.lt(1e3) ? `<br><br>下一次在 ${(tmp[layer].roundUpCost ? formatWhole(tmp[layer].nextAt) : format(tmp[layer].nextAt))} ${tmp[layer].baseResource}` : ""}`
 	if (tmp[layer].type == "static")
+		if(tmp[layer].autoPrestige && tmp[layer].resetsNothing) return `<b>${formatWhole(tmp[layer].resetGain.div(globalrealdiff))}</b> ${tmp[layer].resource}/s`
 		return `${tmp[layer].resetDescription !== undefined ? tmp[layer].resetDescription : "重置以获得 "}+<b>${formatWhole(tmp[layer].resetGain)}</b> ${tmp[layer].resource}<br><br>${player[layer].points.lt(30) ? (tmp[layer].baseAmount.gte(tmp[layer].nextAt) && (tmp[layer].canBuyMax !== undefined) && tmp[layer].canBuyMax ? "下一个:" : "需求:") : ""} ${formatWhole(tmp[layer].baseAmount)} / ${(tmp[layer].roundUpCost ? formatWhole(tmp[layer].nextAtDisp) : format(tmp[layer].nextAtDisp))} ${tmp[layer].baseResource}		
 		`
 	if (tmp[layer].type == "none")
